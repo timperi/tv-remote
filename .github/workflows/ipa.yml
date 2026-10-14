@@ -1,0 +1,82 @@
+# Unsigned Room Remote IPA.
+#
+# This job needs a Mac with Xcode. Origin does not provide one. Depot CI
+# attached to an Origin repository rewrites runs-on: macos-15 onto a Linux
+# sandbox, so this file will not succeed there. Run it on GitHub Actions.
+# A public GitHub repository builds on the standard macos-15 runner for free.
+# The IPA is unsigned on purpose: AltStore or Sideloadly re-signs it with a
+# free Apple ID. No paid-account entitlements are applied.
+
+name: Unsigned IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      bundle_id:
+        description: Bundle identifier (change if the free Apple ID cannot register personal.roomremote)
+        default: personal.roomremote
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: unsigned-ipa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ipa:
+    name: Build unsigned IPA
+    runs-on: macos-15
+    timeout-minutes: 30
+    env:
+      BUNDLE_ID: ${{ inputs.bundle_id || 'personal.roomremote' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode
+        run: |
+          xcodebuild -version
+          xcode-select -p
+
+      - name: Build and package
+        run: bash Scripts/package-unsigned-ipa.sh
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoomRemote-unsigned-ipa
+          path: dist/RoomRemote-unsigned.ipa
+          if-no-files-found: error
+          retention-days: 90
+          compression-level: 0
+
+      - name: Publish GitHub Release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cat > release-notes.txt <<EOF
+          Unsigned Room Remote IPA for AltStore or Sideloadly.
+
+          This file is not signed. Install it from Windows with Sideloadly or AltServer, which re-sign it with a free Apple ID. The installed app stops opening after 7 days; refresh it the same way.
+
+          - Commit: ${GITHUB_SHA}
+          - Bundle id: ${BUNDLE_ID}
+          - iOS 17 or later
+          - No paid-account entitlements
+          EOF
+          # The heredoc above is indented with the workflow YAML. Strip that.
+          sed -i.bak -E 's/^[[:space:]]+//' release-notes.txt
+          if gh release view unsigned >/dev/null 2>&1; then
+            gh release delete unsigned --yes --cleanup-tag
+          fi
+          git push origin ":refs/tags/unsigned" || true
+          gh release create unsigned dist/RoomRemote-unsigned.ipa \
+            --prerelease \
+            --target "${GITHUB_SHA}" \
+            --title "Unsigned IPA" \
+            --notes-file release-notes.txt

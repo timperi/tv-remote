@@ -1,0 +1,521 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+		C23FC2126D5B1F030273E5EB /* ref App/ATVSocket.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = ATVSocket.swift;
+			sourceTree = "<group>";
+		};
+		95A81C142ACB2B515DBD5C57 /* build ATVSocket.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = C23FC2126D5B1F030273E5EB /* ATVSocket.swift */;
+		};
+		497D9EA4F3F1DEE0902DCEA4 /* ref App/DeviceStore.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = DeviceStore.swift;
+			sourceTree = "<group>";
+		};
+		D2E809E1A2CD24C3D918E489 /* build DeviceStore.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 497D9EA4F3F1DEE0902DCEA4 /* DeviceStore.swift */;
+		};
+		3AFAA1576FAC813EAF3B308C /* ref App/DevicesView.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = DevicesView.swift;
+			sourceTree = "<group>";
+		};
+		65221F23217244308FE74100 /* build DevicesView.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 3AFAA1576FAC813EAF3B308C /* DevicesView.swift */;
+		};
+		D4824494387FAC36886925C6 /* ref App/IdentityStore.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = IdentityStore.swift;
+			sourceTree = "<group>";
+		};
+		0569DFA12FCBD54454D4FC40 /* build IdentityStore.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = D4824494387FAC36886925C6 /* IdentityStore.swift */;
+		};
+		40145707EDCB53DCA43A44A9 /* ref App/PairingView.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = PairingView.swift;
+			sourceTree = "<group>";
+		};
+		2F20E5584081C7D5472C1BD0 /* build PairingView.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 40145707EDCB53DCA43A44A9 /* PairingView.swift */;
+		};
+		A1B5A6B9A3CE3D477BA046A0 /* ref App/RemoteView.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RemoteView.swift;
+			sourceTree = "<group>";
+		};
+		D35F2C8E565A062030E38734 /* build RemoteView.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = A1B5A6B9A3CE3D477BA046A0 /* RemoteView.swift */;
+		};
+		337B1BB4F9F838040D043685 /* ref App/RoomRemoteApp.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RoomRemoteApp.swift;
+			sourceTree = "<group>";
+		};
+		E1BDF5FEF90492CE462AFB39 /* build RoomRemoteApp.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 337B1BB4F9F838040D043685 /* RoomRemoteApp.swift */;
+		};
+		53FEB70CF2B5C17B9E8D1CC0 /* ref App/TVBrowser.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = TVBrowser.swift;
+			sourceTree = "<group>";
+		};
+		17CE793469072D36A6F35F26 /* build TVBrowser.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 53FEB70CF2B5C17B9E8D1CC0 /* TVBrowser.swift */;
+		};
+		C8D117EB01BDBDDC35233499 /* ref App/TVSession.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = TVSession.swift;
+			sourceTree = "<group>";
+		};
+		31D81D130057AD14A2E4B6AD /* build TVSession.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = C8D117EB01BDBDDC35233499 /* TVSession.swift */;
+		};
+		37CAB98F78D2F049A7EBE70B /* ref App/Theme.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Theme.swift;
+			sourceTree = "<group>";
+		};
+		057F781233333AD2216AEC93 /* build Theme.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 37CAB98F78D2F049A7EBE70B /* Theme.swift */;
+		};
+		A5F52F08585E85BDC0D015B1 /* ref Assets.xcassets */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = folder.assetcatalog;
+			path = Assets.xcassets;
+			sourceTree = "<group>";
+		};
+		1A0EDE619D35AF84BE383C53 /* build Assets */ = {
+			isa = PBXBuildFile;
+			fileRef = A5F52F08585E85BDC0D015B1 /* Assets.xcassets */;
+		};
+		EFD991989AA80E6F4CB1E79D /* ref PrivacyInfo.xcprivacy */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = PrivacyInfo.xcprivacy;
+			sourceTree = "<group>";
+		};
+		AD00B451C76556023C1D1F87 /* build Privacy */ = {
+			isa = PBXBuildFile;
+			fileRef = EFD991989AA80E6F4CB1E79D /* PrivacyInfo.xcprivacy */;
+		};
+		3C8014CD97EC3E3F5F031464 /* ref Info.plist */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.xml;
+			path = Info.plist;
+			sourceTree = "<group>";
+		};
+		82871A5B762BA9E58CD23B34 /* ref core/FrameCodec.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = FrameCodec.swift;
+			sourceTree = "<group>";
+		};
+		ABE1FC67508247FB86FB629D /* build core FrameCodec.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 82871A5B762BA9E58CD23B34 /* FrameCodec.swift */;
+		};
+		3FA56A79A179AD92F2582B70 /* ref core/PairingMachine.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = PairingMachine.swift;
+			sourceTree = "<group>";
+		};
+		E257080512BC1B9B92C18470 /* build core PairingMachine.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 3FA56A79A179AD92F2582B70 /* PairingMachine.swift */;
+		};
+		4C0B98DE163BC27F445599D4 /* ref core/PairingMessages.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = PairingMessages.swift;
+			sourceTree = "<group>";
+		};
+		D39FA2DB10BE017D54046720 /* build core PairingMessages.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 4C0B98DE163BC27F445599D4 /* PairingMessages.swift */;
+		};
+		9BB4012A4FF3747061A9F54C /* ref core/PairingSecret.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = PairingSecret.swift;
+			sourceTree = "<group>";
+		};
+		7E3ED571640CB005F9906187 /* build core PairingSecret.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 9BB4012A4FF3747061A9F54C /* PairingSecret.swift */;
+		};
+		C0FE508C372770B3F8A29742 /* ref core/Protobuf.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = Protobuf.swift;
+			sourceTree = "<group>";
+		};
+		DC89AC2F03D2CE809A37646E /* build core Protobuf.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = C0FE508C372770B3F8A29742 /* Protobuf.swift */;
+		};
+		F785BD7E1481A14CA9A211DF /* ref core/RSAPublicKey.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RSAPublicKey.swift;
+			sourceTree = "<group>";
+		};
+		B918933A224B233A3732BA0B /* build core RSAPublicKey.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = F785BD7E1481A14CA9A211DF /* RSAPublicKey.swift */;
+		};
+		976AAFC85176756FB069D418 /* ref core/RemoteMessages.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RemoteMessages.swift;
+			sourceTree = "<group>";
+		};
+		ED6FBF81D2DEBDFCB88B9705 /* build core RemoteMessages.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 976AAFC85176756FB069D418 /* RemoteMessages.swift */;
+		};
+		C93FA982083A25FA22BB9827 /* ref core/RemoteSession.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RemoteSession.swift;
+			sourceTree = "<group>";
+		};
+		F941E078AF721393C5081088 /* build core RemoteSession.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = C93FA982083A25FA22BB9827 /* RemoteSession.swift */;
+		};
+		B8144112CD4BB80138E94BDE /* ref core/SHA256.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = SHA256.swift;
+			sourceTree = "<group>";
+		};
+		494EB3F3B512DBDD58C0925E /* build core SHA256.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = B8144112CD4BB80138E94BDE /* SHA256.swift */;
+		};
+		64520281DD627B29978D4B96 /* ref core/X509Certificate.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = X509Certificate.swift;
+			sourceTree = "<group>";
+		};
+		738BFE657C7055A4BB4653F8 /* build core X509Certificate.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = 64520281DD627B29978D4B96 /* X509Certificate.swift */;
+		};
+		3DE4D9DAC7F1C7F6453A4A85 /* product RoomRemote.app */ = {
+			isa = PBXFileReference;
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			path = RoomRemote.app;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		BCE16DD0260827ECF338C787 /* sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				95A81C142ACB2B515DBD5C57 /* 95A81C142ACB2B515DBD5C57 */,
+				D2E809E1A2CD24C3D918E489 /* D2E809E1A2CD24C3D918E489 */,
+				65221F23217244308FE74100 /* 65221F23217244308FE74100 */,
+				0569DFA12FCBD54454D4FC40 /* 0569DFA12FCBD54454D4FC40 */,
+				2F20E5584081C7D5472C1BD0 /* 2F20E5584081C7D5472C1BD0 */,
+				D35F2C8E565A062030E38734 /* D35F2C8E565A062030E38734 */,
+				E1BDF5FEF90492CE462AFB39 /* E1BDF5FEF90492CE462AFB39 */,
+				17CE793469072D36A6F35F26 /* 17CE793469072D36A6F35F26 */,
+				31D81D130057AD14A2E4B6AD /* 31D81D130057AD14A2E4B6AD */,
+				057F781233333AD2216AEC93 /* 057F781233333AD2216AEC93 */,
+				ABE1FC67508247FB86FB629D /* ABE1FC67508247FB86FB629D */,
+				E257080512BC1B9B92C18470 /* E257080512BC1B9B92C18470 */,
+				D39FA2DB10BE017D54046720 /* D39FA2DB10BE017D54046720 */,
+				7E3ED571640CB005F9906187 /* 7E3ED571640CB005F9906187 */,
+				DC89AC2F03D2CE809A37646E /* DC89AC2F03D2CE809A37646E */,
+				B918933A224B233A3732BA0B /* B918933A224B233A3732BA0B */,
+				ED6FBF81D2DEBDFCB88B9705 /* ED6FBF81D2DEBDFCB88B9705 */,
+				F941E078AF721393C5081088 /* F941E078AF721393C5081088 */,
+				494EB3F3B512DBDD58C0925E /* 494EB3F3B512DBDD58C0925E */,
+				738BFE657C7055A4BB4653F8 /* 738BFE657C7055A4BB4653F8 */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7561BFB015D8F536760CB671 /* frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0189424A5A60FED329FA868E /* resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0EDE619D35AF84BE383C53 /* Assets.xcassets */,
+				AD00B451C76556023C1D1F87 /* PrivacyInfo.xcprivacy */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7247D040674FEDD7CEB9276C /* group ATVRemoteCore */ = {
+			isa = PBXGroup;
+			children = (
+				82871A5B762BA9E58CD23B34 /* 82871A5B762BA9E58CD23B34 */,
+				3FA56A79A179AD92F2582B70 /* 3FA56A79A179AD92F2582B70 */,
+				4C0B98DE163BC27F445599D4 /* 4C0B98DE163BC27F445599D4 */,
+				9BB4012A4FF3747061A9F54C /* 9BB4012A4FF3747061A9F54C */,
+				C0FE508C372770B3F8A29742 /* C0FE508C372770B3F8A29742 */,
+				F785BD7E1481A14CA9A211DF /* F785BD7E1481A14CA9A211DF */,
+				976AAFC85176756FB069D418 /* 976AAFC85176756FB069D418 */,
+				C93FA982083A25FA22BB9827 /* C93FA982083A25FA22BB9827 */,
+				B8144112CD4BB80138E94BDE /* B8144112CD4BB80138E94BDE */,
+				64520281DD627B29978D4B96 /* 64520281DD627B29978D4B96 */,
+			);
+			path = ATVRemoteCore;
+			sourceTree = "<group>";
+		};
+		4C6FD379246EFA266238C6B9 /* group Sources */ = {
+			isa = PBXGroup;
+			children = (
+				7247D040674FEDD7CEB9276C /* ATVRemoteCore */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		1C451FDB50AB3A302B8F03A7 /* group App */ = {
+			isa = PBXGroup;
+			children = (
+				C23FC2126D5B1F030273E5EB /* C23FC2126D5B1F030273E5EB */,
+				497D9EA4F3F1DEE0902DCEA4 /* 497D9EA4F3F1DEE0902DCEA4 */,
+				3AFAA1576FAC813EAF3B308C /* 3AFAA1576FAC813EAF3B308C */,
+				D4824494387FAC36886925C6 /* D4824494387FAC36886925C6 */,
+				40145707EDCB53DCA43A44A9 /* 40145707EDCB53DCA43A44A9 */,
+				A1B5A6B9A3CE3D477BA046A0 /* A1B5A6B9A3CE3D477BA046A0 */,
+				337B1BB4F9F838040D043685 /* 337B1BB4F9F838040D043685 */,
+				53FEB70CF2B5C17B9E8D1CC0 /* 53FEB70CF2B5C17B9E8D1CC0 */,
+				C8D117EB01BDBDDC35233499 /* C8D117EB01BDBDDC35233499 */,
+				37CAB98F78D2F049A7EBE70B /* 37CAB98F78D2F049A7EBE70B */,
+				A5F52F08585E85BDC0D015B1 /* A5F52F08585E85BDC0D015B1 */,
+				EFD991989AA80E6F4CB1E79D /* EFD991989AA80E6F4CB1E79D */,
+				3C8014CD97EC3E3F5F031464 /* 3C8014CD97EC3E3F5F031464 */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		ECF2B0E9511D497A619958E6 /* group Products */ = {
+			isa = PBXGroup;
+			children = (
+				3DE4D9DAC7F1C7F6453A4A85 /* RoomRemote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F20F5961530BF563FE0E26A /* group main */ = {
+			isa = PBXGroup;
+			children = (
+				1C451FDB50AB3A302B8F03A7 /* App */,
+				4C6FD379246EFA266238C6B9 /* Sources */,
+				ECF2B0E9511D497A619958E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9C11F2088AF7DF915F0B808F /* config target Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Room Remote";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = personal.roomremote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D16B5DAE6C0EACA9EBFC726E /* config target Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Room Remote";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = personal.roomremote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		C4781AAA0FD12068260D1D6B /* config list target */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C11F2088AF7DF915F0B808F /* Debug */,
+				D16B5DAE6C0EACA9EBFC726E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67136A91827586BB165F763D /* target RoomRemote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4781AAA0FD12068260D1D6B /* target configs */;
+			buildPhases = (
+				BCE16DD0260827ECF338C787 /* Sources */,
+				7561BFB015D8F536760CB671 /* Frameworks */,
+				0189424A5A60FED329FA868E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RoomRemote;
+			productName = RoomRemote;
+			productReference = 3DE4D9DAC7F1C7F6453A4A85 /* RoomRemote.app */;
+			productType = "com.apple.product-type.application";
+		};
+		50B38C9DF4B36383D4ACB1D2 /* config project Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		314832162FCC0D6500D1A9EC /* config project Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf-with-dsym;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FCD9D368A59F715A21D4FCDD /* config list project */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50B38C9DF4B36383D4ACB1D2 /* Debug */,
+				314832162FCC0D6500D1A9EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98F54143AB4E86B28C3AFEE0 /* project */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = Personal;
+				TargetAttributes = {
+					67136A91827586BB165F763D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = FCD9D368A59F715A21D4FCDD /* project configs */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9F20F5961530BF563FE0E26A /* main */;
+			productRefGroup = ECF2B0E9511D497A619958E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67136A91827586BB165F763D /* RoomRemote */,
+			);
+		};
+	};
+	rootObject = 98F54143AB4E86B28C3AFEE0 /* project */;
+}
