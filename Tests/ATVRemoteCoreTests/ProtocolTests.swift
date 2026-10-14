@@ -149,6 +149,7 @@ final class ProtocolTests: XCTestCase {
         XCTAssertEqual(RemoteMessages.setActive(features: .requested).hex, "120308e704")
         XCTAssertEqual(RemoteMessages.key(.dpadCenter, direction: .short).hex, "520408171003")
         XCTAssertEqual(RemoteMessages.key(.power, direction: .short).hex, "5204081a1003")
+        XCTAssertEqual(RemoteMessages.powerButton().hex, "5204081a1003")
         XCTAssertEqual(RemoteMessages.pingResponse(7).hex, "4a020807")
         XCTAssertEqual(RemoteMessages.pingResponse(0).hex, "4a00")
         XCTAssertEqual(RemoteMessages.text("hi", imeCounter: 4, fieldCounter: 9)?.hex, "aa0112080410091a0c08011208080110011a026869")
@@ -158,6 +159,16 @@ final class ProtocolTests: XCTestCase {
         XCTAssertEqual(RemoteMessages.launch(AppLink.netflix).hex, "d2050c0a0a6e6574666c69783a2f2f")
         XCTAssertEqual(AppLink.normalize("com.netflix.ninja"), "market://launch?id=com.netflix.ninja")
         XCTAssertEqual(AppLink.normalize(" https://www.youtube.com "), "https://www.youtube.com")
+    }
+
+    func testPowerButtonStaysShortPowerWhenTheTVIsOn() {
+        let power = RemoteMessages.powerButton()
+        XCTAssertEqual(power, RemoteMessages.key(.power, direction: .short))
+        XCTAssertEqual(power.hex, "5204081a1003")
+        XCTAssertNotEqual(power, RemoteMessages.key(.sleep, direction: .short))
+        XCTAssertNotEqual(power, RemoteMessages.key(.wakeup, direction: .short))
+        XCTAssertNotEqual(power, RemoteMessages.key(.power, direction: .startLong))
+        XCTAssertNotEqual(power, RemoteMessages.key(.power, direction: .endLong))
     }
 
     func testRemoteSessionUpdatesStateAndReplies() {

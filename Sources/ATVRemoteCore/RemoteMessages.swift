@@ -15,7 +15,9 @@ enum RemoteKey: Int, Equatable {
     case mute = 164
     case channelUp = 166
     case channelDown = 167
+    /// Not injected by the virtual remote. `TvKeys.h` has no SLEEP entry, so the service drops it.
     case sleep = 223
+    /// Not injected by the virtual remote. `TvKeys.h` has no WAKEUP entry, so the service drops it.
     case wakeup = 224
 }
 
@@ -105,6 +107,19 @@ enum RemoteMessages {
         var outer = ProtoWriter()
         outer.writeMessage(10, body.data)
         return outer.data
+    }
+
+    /// Power while the command channel is connected.
+    ///
+    /// The remote service injects keys through the virtual remote layout in
+    /// AOSP `TvKeys.h`. That layout includes `KEYCODE_POWER` (26) and does
+    /// not include `KEYCODE_SLEEP` (223), `KEYCODE_WAKEUP` (224), or
+    /// `KEYCODE_TV_POWER` (177), so those codes are dropped even though the
+    /// socket is up. Direction is `SHORT`: one tap, not a long-press pair.
+    /// `KEYCODE_POWER` toggles. The reported on/off state must not pick a
+    /// different code — sending SLEEP because the TV says it is on does nothing.
+    static func powerButton() -> Data {
+        key(.power, direction: .short)
     }
 
     /// Inserts text through the TV's input method.

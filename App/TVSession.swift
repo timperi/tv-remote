@@ -90,13 +90,8 @@ final class TVSession: ObservableObject {
     }
 
     func power() {
-        if isOn == true {
-            press(.sleep, direction: .short)
-        } else if isOn == false {
-            press(.wakeup, direction: .short)
-        } else {
-            press(.power, direction: .short)
-        }
+        guard isReady else { return }
+        socket?.send(RemoteMessages.powerButton())
     }
 
     func sendText(_ text: String) {
