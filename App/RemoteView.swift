@@ -130,9 +130,9 @@ struct RemoteView: View {
 
     private var powerLabel: String {
         switch session.isOn {
-        case true: return "On"
-        case false: return "Asleep"
-        case nil: return "Connected"
+        case .some(true): return "On"
+        case .some(false): return "Asleep"
+        case .none: return "Connected"
         }
     }
 

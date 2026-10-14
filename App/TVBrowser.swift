@@ -17,7 +17,7 @@ final class TVBrowser: ObservableObject {
     @Published private(set) var localNetworkBlocked = false
 
     private var browser: NWBrowser?
-    private var resolvers: [String: ServiceResolver] = []
+    private var resolvers: [String: ServiceResolver] = [:]
 
     func start() {
         guard browser == nil else { return }

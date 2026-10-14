@@ -11,7 +11,7 @@ name: Unsigned IPA
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
     inputs:
       bundle_id:
@@ -55,7 +55,7 @@ jobs:
           compression-level: 0
 
       - name: Publish GitHub Release
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

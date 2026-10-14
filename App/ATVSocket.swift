@@ -22,7 +22,7 @@ final class ATVSocket {
         let queue = DispatchQueue(label: "personal.roomremote.socket")
         let certificates = CertCapture()
         let tls = NWProtocolTLS.Options()
-        sec_protocol_options_set_min_tls_protocol_version(tls.securityProtocolOptions, tls_protocol_version_TLSv12)
+        sec_protocol_options_set_min_tls_protocol_version(tls.securityProtocolOptions, .TLSv12)
         sec_protocol_options_set_verify_block(tls.securityProtocolOptions, { _, trust, complete in
             let secTrust = sec_trust_copy_ref(trust).takeRetainedValue()
             if let chain = SecTrustCopyCertificateChain(secTrust) as? [SecCertificate],
