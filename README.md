@@ -10,7 +10,8 @@ Requires iOS 17 or later. Day-to-day work can stay on Linux. Apple only ships th
 
 - Finds TVs advertising `_androidtvremote2._tcp` (Bonjour), and lets you type an IP address if discovery misses one.
 - Pairs once. The TV shows a 6-character hexadecimal code; you type it into the phone. The client certificate is stored in the Keychain.
-- Sends power (`KEYCODE_POWER`, a short press), a D-pad with OK, back, home, volume, mute, channel, and play/pause.
+- Sends power (`KEYCODE_POWER`, a short press), Guide, Live TV, a D-pad with OK, back, home, volume, mute, channel, and play/pause.
+- Opens a full-screen keyboard. It is not the iOS keyboard. Each key goes to the TV immediately, including å ä ö, and the text shows on the TV. That screen can rotate to landscape so the keys get wider. The rest of the app stays portrait.
 - Holds a direction, volume, or channel key to repeat it.
 - Optional swipe touchpad in place of the D-pad, and optional haptic taps.
 - Launches YouTube (`https://www.youtube.com`) and Netflix (`netflix://`).
@@ -33,6 +34,8 @@ Checked against [tronikos/androidtvremote2](https://github.com/tronikos/androidt
 | Code on screen | Six hex characters. The first byte must equal `digest[0]`. The other two bytes are the nonce. The phone sends the full 32-byte digest, not the older Polo "gamma" value. This matches `androidtvremote2`'s `pairing.py`. |
 | Commands | `remotemessage.proto` `RemoteMessage`: key inject, ping reply, configure / set-active, IME batch edit for text, and `remote_app_link_launch_request` for app links. |
 | Power | `RemoteKeyInject` key code **26** (`KEYCODE_POWER`), direction **SHORT** (3). The virtual remote layout (`TvKeys.h`) includes POWER and does not include SLEEP (223), WAKEUP (224), or TV_POWER (177), so those codes are dropped while the command channel is connected. POWER toggles. Turning the panel on from standby needs the TV to keep this service listening (Sony: **Remote start**). |
+| Guide and Live TV | Key codes **172** (`KEYCODE_GUIDE`) and **170** (`KEYCODE_TV`). Both are in `TvKeys.h` (`KEY_EPG` and `KEY_TV`), so they are injected rather than launched as app links. |
+| Keyboard | Each character is a `RemoteImeBatchEdit` of the whole field, sent on the keypress. Live `ime_counter` and `field_counter` come from `remote_ime_key_inject`, not from the batch-edit echo. Backspace resends the shorter field. The last character and Enter are `KEYCODE_DEL` (67) and `KEYCODE_ENTER` (66). If the TV did not grant IME, ASCII falls back to key codes. å ä ö have no key code, so they stay on the IME path. |
 | App links | A string that already contains `://` is sent as-is. A bare package id is prefixed with `market://launch?id=`. Deep links are more reliable than package ids on current Google TV builds. |
 
 `swift test` checks the Swift encoder against byte strings produced by Python's protobuf compiler from those `.proto` files, and checks the pairing digest against hashlib for the same inputs. It also checks split length prefixes, the checksum on the pairing code, and the shape of the self-signed certificate.

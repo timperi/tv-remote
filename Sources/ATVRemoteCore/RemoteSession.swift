@@ -23,14 +23,17 @@ enum RemoteSession {
             state.volumeMax = max
             state.isMuted = muted
             return []
-        case .imeApp(let package):
+        case .imeFocus(let package, let ime, let field, let value):
             if let package, !package.isEmpty {
                 state.currentApp = package
             }
+            // Live counters ride on key-inject. The batch-edit echo is a stale
+            // placeholder (often 1, 1); copying it makes the TV drop the edit.
+            if let ime { state.imeCounter = ime }
+            if let field { state.fieldCounter = field }
+            if let value { state.fieldText = value }
             return []
-        case .imeCounters(let ime, let field):
-            state.imeCounter = ime
-            state.fieldCounter = field
+        case .imeCounters:
             return []
         case .error:
             state.lastError = "The TV rejected the last command."

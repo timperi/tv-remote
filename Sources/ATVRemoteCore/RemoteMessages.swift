@@ -11,10 +11,16 @@ enum RemoteKey: Int, Equatable {
     case volumeUp = 24
     case volumeDown = 25
     case power = 26
+    case enter = 66
+    case delete = 67
     case playPause = 85
     case mute = 164
     case channelUp = 166
     case channelDown = 167
+    /// `KEY_TV` in `TvKeys.h`, so the virtual remote injects it. Live TV does not need an app link.
+    case tv = 170
+    /// `KEY_EPG` in `TvKeys.h` (`AKEYCODE_GUIDE`). The virtual remote injects this too.
+    case guide = 172
     /// Not injected by the virtual remote. `TvKeys.h` has no SLEEP entry, so the service drops it.
     case sleep = 223
     /// Not injected by the virtual remote. `TvKeys.h` has no WAKEUP entry, so the service drops it.
@@ -49,6 +55,8 @@ struct TVState: Equatable {
     var isMuted: Bool?
     var imeCounter: Int32 = 0
     var fieldCounter: Int32 = 0
+    /// Latest text-field contents from `remote_ime_key_inject`, when the TV sent them.
+    var fieldText: String?
     var activeFeatures: RemoteFeatures = .requested
     var manufacturer: String?
     var model: String?
@@ -101,12 +109,35 @@ enum RemoteMessages {
     }
 
     static func key(_ key: RemoteKey, direction: KeyDirection) -> Data {
+        keyCode(key.rawValue, direction: direction)
+    }
+
+    static func keyCode(_ code: Int, direction: KeyDirection) -> Data {
         var body = ProtoWriter()
-        body.writeInt(1, key.rawValue, omitZero: false)
+        body.writeInt(1, code, omitZero: false)
         body.writeInt(2, direction.rawValue, omitZero: false)
         var outer = ProtoWriter()
         outer.writeMessage(10, body.data)
         return outer.data
+    }
+
+    /// ASCII letter, digit, or space as a `RemoteKeyCode`, for when the IME feature is off.
+    /// Uppercase uses the same letter code as lowercase. `TvKeys.h` has no shift key.
+    /// Finnish letters have no code and return nil.
+    static func asciiKeyCode(_ character: Character) -> Int? {
+        guard let ascii = character.asciiValue else { return nil }
+        switch Int(ascii) {
+        case 97...122:
+            return 29 + Int(ascii) - 97
+        case 65...90:
+            return 29 + Int(ascii) - 65
+        case 48...57:
+            return 7 + Int(ascii) - 48
+        case 32:
+            return 62
+        default:
+            return nil
+        }
     }
 
     /// Power while the command channel is connected.
@@ -160,7 +191,11 @@ enum RemoteIncoming {
     case ping(Int)
     case started(Bool)
     case volume(level: Int, max: Int, muted: Bool)
-    case imeApp(String?)
+    /// `remote_ime_key_inject`. Counters here are the live ones.
+    /// `imeCounter` and `fieldCounter` are nil when this message only names the foreground app.
+    /// `value` is nil when no text-field status was attached. An empty string is a real empty field.
+    case imeFocus(package: String?, imeCounter: Int32?, fieldCounter: Int32?, value: String?)
+    /// `remote_ime_batch_edit` echoed by the TV. Its counters stay at a placeholder and are not live.
     case imeCounters(ime: Int32, field: Int32)
     case error
     case other
@@ -187,10 +222,27 @@ enum RemoteIncoming {
         if let body = Proto.bytes(fields, 20) {
             let nested = (try? Proto.parse(body)) ?? []
             var package: String?
+            var ime: Int32?
             if let app = Proto.bytes(nested, 1), let appFields = try? Proto.parse(app) {
                 package = Proto.string(appFields, 12)
+                if Proto.has(appFields, 1) {
+                    ime = int32(Proto.int(appFields, 1) ?? 0)
+                }
             }
-            return .imeApp(package)
+            var field: Int32?
+            var value: String?
+            if let status = Proto.bytes(nested, 2) {
+                let statusFields = (try? Proto.parse(status)) ?? []
+                // A missing counter_field is proto3's zero. Zero is a real value:
+                // the foreground app has no InputConnection, and the TV still
+                // accepts text by turning it into key events.
+                field = int32(Proto.int(statusFields, 1) ?? 0)
+                value = Proto.string(statusFields, 2) ?? ""
+                if ime == nil {
+                    ime = 0
+                }
+            }
+            return .imeFocus(package: package, imeCounter: ime, fieldCounter: field, value: value)
         }
         if let body = Proto.bytes(fields, 21) {
             let nested = (try? Proto.parse(body)) ?? []

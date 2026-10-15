@@ -14,6 +14,7 @@ CORE = [
     "RSAPublicKey.swift",
     "RemoteMessages.swift",
     "RemoteSession.swift",
+    "RemoteTyping.swift",
     "SHA256.swift",
     "X509Certificate.swift",
 ]
@@ -22,6 +23,7 @@ APP = [
     "DeviceStore.swift",
     "DevicesView.swift",
     "IdentityStore.swift",
+    "KeyboardView.swift",
     "PairingView.swift",
     "RemoteView.swift",
     "RoomRemoteApp.swift",
@@ -286,6 +288,8 @@ def target_config(name: str) -> str:
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Room Remote";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

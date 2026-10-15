@@ -22,6 +22,8 @@ final class TVSession: ObservableObject {
     @Published var volumeLevel: Int?
     @Published var volumeMax: Int?
     @Published var isMuted: Bool?
+    /// What the keyboard last sent, or the field text the TV reported.
+    @Published var keyboardText = ""
 
     private let store: DeviceStore
     private let log = Logger(subsystem: "personal.roomremote", category: "session")
@@ -29,6 +31,7 @@ final class TVSession: ObservableObject {
     private var socket: ATVSocket?
     private var machine: PairingMachine?
     private var tv = TVState()
+    private var typing = RemoteTyping()
     private var identity: SecIdentity?
     private var clientKey: (modulus: Data, exponent: Data)?
     private var timeout: Task<Void, Never>?
@@ -46,6 +49,8 @@ final class TVSession: ObservableObject {
         isReady = false
         isOn = nil
         currentApp = nil
+        typing = RemoteTyping()
+        keyboardText = ""
         store.upsert(device)
         if device.paired {
             route = .remote
@@ -94,9 +99,42 @@ final class TVSession: ObservableObject {
         socket?.send(RemoteMessages.powerButton())
     }
 
-    func sendText(_ text: String) {
-        guard isReady, let payload = RemoteMessages.text(text, imeCounter: tv.imeCounter, fieldCounter: tv.fieldCounter) else { return }
-        socket?.send(payload)
+    func type(_ character: String) {
+        guard isReady else { return }
+        syncTyping()
+        guard let command = typing.insert(character) else { return }
+        keyboardText = typing.text
+        send(command)
+    }
+
+    func typeBackspace() {
+        guard isReady else { return }
+        syncTyping()
+        let command = typing.backspace()
+        keyboardText = typing.text
+        send(command)
+    }
+
+    func typeEnter() {
+        guard isReady else { return }
+        send(typing.enter())
+    }
+
+    private func syncTyping() {
+        typing.imeCounter = tv.imeCounter
+        typing.fieldCounter = tv.fieldCounter
+        typing.imeEnabled = tv.activeFeatures.contains(.ime)
+    }
+
+    private func send(_ command: RemoteTyping.Command) {
+        switch command {
+        case .ime(let data):
+            socket?.send(data)
+        case .key(let key):
+            socket?.send(RemoteMessages.key(key, direction: .short))
+        case .keyCode(let code):
+            socket?.send(RemoteMessages.keyCode(code, direction: .short))
+        }
     }
 
     func launch(_ link: String) {
@@ -202,6 +240,11 @@ final class TVSession: ObservableObject {
             volumeLevel = tv.volumeLevel
             volumeMax = tv.volumeMax
             isMuted = tv.isMuted
+            syncTyping()
+            if let value = tv.fieldText {
+                typing.noteRemoteText(value)
+            }
+            keyboardText = typing.text
             if let lastError = tv.lastError {
                 errorMessage = lastError
                 tv.lastError = nil
@@ -299,5 +342,7 @@ final class TVSession: ObservableObject {
         socket?.cancel()
         socket = nil
         tv = TVState()
+        typing = RemoteTyping()
+        keyboardText = ""
     }
 }

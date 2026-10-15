@@ -150,6 +150,17 @@ final class ProtocolTests: XCTestCase {
         XCTAssertEqual(RemoteMessages.key(.dpadCenter, direction: .short).hex, "520408171003")
         XCTAssertEqual(RemoteMessages.key(.power, direction: .short).hex, "5204081a1003")
         XCTAssertEqual(RemoteMessages.powerButton().hex, "5204081a1003")
+        XCTAssertEqual(RemoteMessages.key(.guide, direction: .short).hex, "520508ac011003")
+        XCTAssertEqual(RemoteMessages.key(.tv, direction: .short).hex, "520508aa011003")
+        XCTAssertEqual(RemoteMessages.key(.delete, direction: .short).hex, "520408431003")
+        XCTAssertEqual(RemoteMessages.key(.enter, direction: .short).hex, "520408421003")
+        XCTAssertEqual(RemoteMessages.asciiKeyCode("a"), 29)
+        XCTAssertEqual(RemoteMessages.asciiKeyCode("Z"), 54)
+        XCTAssertEqual(RemoteMessages.asciiKeyCode("0"), 7)
+        XCTAssertEqual(RemoteMessages.asciiKeyCode(" "), 62)
+        XCTAssertNil(RemoteMessages.asciiKeyCode("ö"))
+        XCTAssertNil(RemoteMessages.asciiKeyCode("ä"))
+        XCTAssertNil(RemoteMessages.asciiKeyCode("å"))
         XCTAssertEqual(RemoteMessages.pingResponse(7).hex, "4a020807")
         XCTAssertEqual(RemoteMessages.pingResponse(0).hex, "4a00")
         XCTAssertEqual(RemoteMessages.text("hi", imeCounter: 4, fieldCounter: 9)?.hex, "aa0112080410091a0c08011208080110011a026869")
@@ -198,11 +209,62 @@ final class ProtocolTests: XCTestCase {
         XCTAssertEqual(state.volumeMax, 25)
         XCTAssertEqual(state.isMuted, true)
 
+        state.imeCounter = 5
+        state.fieldCounter = 2
         _ = RemoteSession.handle(hex("a2012a0a285207596f7554756265621d636f6d2e676f6f676c652e616e64726f69642e796f75747562652e7476"), state: &state)
         XCTAssertEqual(state.currentApp, "com.google.android.youtube.tv")
+        XCTAssertEqual(state.imeCounter, 5)
+        XCTAssertEqual(state.fieldCounter, 2)
         _ = RemoteSession.handle(hex("aa010408031008"), state: &state)
-        XCTAssertEqual(state.imeCounter, 3)
-        XCTAssertEqual(state.fieldCounter, 8)
+        XCTAssertEqual(state.imeCounter, 5)
+        XCTAssertEqual(state.fieldCounter, 2)
+
+        _ = RemoteSession.handle(imeFocus(ime: 7, field: 4, package: "com.sony.dtv", value: "ab"), state: &state)
+        XCTAssertEqual(state.currentApp, "com.sony.dtv")
+        XCTAssertEqual(state.imeCounter, 7)
+        XCTAssertEqual(state.fieldCounter, 4)
+        XCTAssertEqual(state.fieldText, "ab")
+        _ = RemoteSession.handle(imeFocus(ime: 7, field: 0, package: "com.google.android.youtube.tv", value: ""), state: &state)
+        XCTAssertEqual(state.fieldCounter, 0)
+        XCTAssertEqual(state.fieldText, "")
+    }
+
+    func testTypingSendsTheWholeFieldOnEachKey() {
+        var typing = RemoteTyping()
+        typing.focus(imeCounter: 4, fieldCounter: 9, value: "")
+        XCTAssertEqual(typing.insert("c"), .some(.ime(RemoteMessages.text("c", imeCounter: 4, fieldCounter: 9)!)))
+        XCTAssertEqual(typing.insert("ä"), .some(.ime(RemoteMessages.text("cä", imeCounter: 4, fieldCounter: 9)!)))
+        XCTAssertEqual(typing.insert("ö"), .some(.ime(RemoteMessages.text("cäö", imeCounter: 4, fieldCounter: 9)!)))
+        XCTAssertEqual(typing.insert("å"), .some(.ime(RemoteMessages.text("cäöå", imeCounter: 4, fieldCounter: 9)!)))
+        XCTAssertEqual(typing.text, "cäöå")
+
+        XCTAssertEqual(typing.backspace(), .ime(RemoteMessages.text("cäö", imeCounter: 4, fieldCounter: 9)!))
+        XCTAssertEqual(typing.backspace(), .ime(RemoteMessages.text("cä", imeCounter: 4, fieldCounter: 9)!))
+        XCTAssertEqual(typing.backspace(), .ime(RemoteMessages.text("c", imeCounter: 4, fieldCounter: 9)!))
+        XCTAssertEqual(typing.backspace(), .key(.delete))
+        XCTAssertEqual(typing.text, "")
+        XCTAssertEqual(typing.enter(), .key(.enter))
+        XCTAssertNotEqual(typing.enter(), .key(.guide))
+    }
+
+    func testTypingKeepsLocalTextAheadOfAStaleEcho() {
+        var typing = RemoteTyping()
+        typing.focus(imeCounter: 2, fieldCounter: 1, value: "hi")
+        XCTAssertEqual(typing.insert("!"), .some(.ime(RemoteMessages.text("hi!", imeCounter: 2, fieldCounter: 1)!)))
+        typing.noteRemoteText("hi")
+        XCTAssertEqual(typing.text, "hi!")
+        typing.noteRemoteText("hi")
+        XCTAssertEqual(typing.text, "hi!")
+        typing.noteRemoteText("yo")
+        XCTAssertEqual(typing.text, "yo")
+    }
+
+    func testTypingFallsBackToKeyCodesWhenIMEIsOff() {
+        var typing = RemoteTyping()
+        typing.imeEnabled = false
+        XCTAssertEqual(typing.insert("a"), .some(.keyCode(29)))
+        XCTAssertEqual(typing.insert(" "), .some(.keyCode(62)))
+        XCTAssertEqual(typing.insert("ö"), .some(.ime(RemoteMessages.text("a ö", imeCounter: 0, fieldCounter: 0)!)))
     }
 
     func testFramingSplitsAnywhere() throws {
@@ -290,6 +352,21 @@ final class ProtocolTests: XCTestCase {
 
     private func hex(_ value: String) -> Data {
         Data(hex: value)!
+    }
+
+    private func imeFocus(ime: Int, field: Int, package: String, value: String) -> Data {
+        var app = ProtoWriter()
+        app.writeInt(1, ime, omitZero: false)
+        app.writeString(12, package)
+        var status = ProtoWriter()
+        status.writeInt(1, field, omitZero: false)
+        status.writeString(2, value)
+        var body = ProtoWriter()
+        body.writeMessage(1, app.data)
+        body.writeMessage(2, status.data)
+        var outer = ProtoWriter()
+        outer.writeMessage(20, body.data)
+        return outer.data
     }
 
     private func step(_ step: PairingStep) -> PairingStep {

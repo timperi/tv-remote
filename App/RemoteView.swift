@@ -5,8 +5,7 @@ struct RemoteView: View {
     @EnvironmentObject private var session: TVSession
     @EnvironmentObject private var store: DeviceStore
     @State private var touchpad = false
-    @State private var draft = ""
-    @FocusState private var typing: Bool
+    @State private var showKeyboard = false
 
     var body: some View {
         Group {
@@ -87,10 +86,15 @@ struct RemoteView: View {
             .frame(maxHeight: .infinity)
             transportRow
             channelRow
-            textRow
+            guideRow
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 12)
+        .fullScreenCover(isPresented: $showKeyboard) {
+            KeyboardView()
+                .environmentObject(session)
+                .environmentObject(store)
+        }
     }
 
     private var statusRow: some View {
@@ -301,29 +305,24 @@ struct RemoteView: View {
         }
     }
 
-    private var textRow: some View {
-        HStack(spacing: 8) {
-            TextField("Type on the TV", text: $draft)
-                .focused($typing)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .padding(.horizontal, 14)
-                .frame(height: 48)
-                .background(Theme.surface, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .foregroundStyle(Theme.text)
-                .onSubmit(sendDraft)
-            Button("Send", action: sendDraft)
-                .font(.body.weight(.semibold))
-                .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+    private var guideRow: some View {
+        HStack(spacing: 10) {
+            shortcut("Guide") { session.press(.guide, direction: .short) }
+            shortcut("Live TV") { session.press(.tv, direction: .short) }
+            shortcut("Keyboard") { showKeyboard = true }
         }
     }
 
-    private func sendDraft() {
-        let text = draft.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty else { return }
-        session.sendText(text)
-        draft = ""
-        typing = false
+    private func shortcut(_ title: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(Theme.text)
+                .frame(maxWidth: .infinity)
+                .frame(height: 48)
+                .background(Theme.button, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     private func friendlyApp(_ package: String?) -> String? {

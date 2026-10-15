@@ -46,6 +46,16 @@
 			isa = PBXBuildFile;
 			fileRef = D4824494387FAC36886925C6 /* IdentityStore.swift */;
 		};
+		C45341979D1CE7D14B80A005 /* ref App/KeyboardView.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = KeyboardView.swift;
+			sourceTree = "<group>";
+		};
+		C9E9B6CB46F8CEFF7DD82671 /* build KeyboardView.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = C45341979D1CE7D14B80A005 /* KeyboardView.swift */;
+		};
 		40145707EDCB53DCA43A44A9 /* ref App/PairingView.swift */ = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.swift;
@@ -212,6 +222,16 @@
 			isa = PBXBuildFile;
 			fileRef = C93FA982083A25FA22BB9827 /* RemoteSession.swift */;
 		};
+		BC8ABBBB32ECD7C2488B2FF4 /* ref core/RemoteTyping.swift */ = {
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.swift;
+			path = RemoteTyping.swift;
+			sourceTree = "<group>";
+		};
+		7A14A9B9EDAFF38AF34A53DB /* build core RemoteTyping.swift */ = {
+			isa = PBXBuildFile;
+			fileRef = BC8ABBBB32ECD7C2488B2FF4 /* RemoteTyping.swift */;
+		};
 		B8144112CD4BB80138E94BDE /* ref core/SHA256.swift */ = {
 			isa = PBXFileReference;
 			lastKnownFileType = sourcecode.swift;
@@ -247,6 +267,7 @@
 				D2E809E1A2CD24C3D918E489 /* D2E809E1A2CD24C3D918E489 */,
 				65221F23217244308FE74100 /* 65221F23217244308FE74100 */,
 				0569DFA12FCBD54454D4FC40 /* 0569DFA12FCBD54454D4FC40 */,
+				C9E9B6CB46F8CEFF7DD82671 /* C9E9B6CB46F8CEFF7DD82671 */,
 				2F20E5584081C7D5472C1BD0 /* 2F20E5584081C7D5472C1BD0 */,
 				D35F2C8E565A062030E38734 /* D35F2C8E565A062030E38734 */,
 				E1BDF5FEF90492CE462AFB39 /* E1BDF5FEF90492CE462AFB39 */,
@@ -261,6 +282,7 @@
 				B918933A224B233A3732BA0B /* B918933A224B233A3732BA0B */,
 				ED6FBF81D2DEBDFCB88B9705 /* ED6FBF81D2DEBDFCB88B9705 */,
 				F941E078AF721393C5081088 /* F941E078AF721393C5081088 */,
+				7A14A9B9EDAFF38AF34A53DB /* 7A14A9B9EDAFF38AF34A53DB */,
 				494EB3F3B512DBDD58C0925E /* 494EB3F3B512DBDD58C0925E */,
 				738BFE657C7055A4BB4653F8 /* 738BFE657C7055A4BB4653F8 */,
 			);
@@ -293,6 +315,7 @@
 				F785BD7E1481A14CA9A211DF /* F785BD7E1481A14CA9A211DF */,
 				976AAFC85176756FB069D418 /* 976AAFC85176756FB069D418 */,
 				C93FA982083A25FA22BB9827 /* C93FA982083A25FA22BB9827 */,
+				BC8ABBBB32ECD7C2488B2FF4 /* BC8ABBBB32ECD7C2488B2FF4 */,
 				B8144112CD4BB80138E94BDE /* B8144112CD4BB80138E94BDE */,
 				64520281DD627B29978D4B96 /* 64520281DD627B29978D4B96 */,
 			);
@@ -314,6 +337,7 @@
 				497D9EA4F3F1DEE0902DCEA4 /* 497D9EA4F3F1DEE0902DCEA4 */,
 				3AFAA1576FAC813EAF3B308C /* 3AFAA1576FAC813EAF3B308C */,
 				D4824494387FAC36886925C6 /* D4824494387FAC36886925C6 */,
+				C45341979D1CE7D14B80A005 /* C45341979D1CE7D14B80A005 */,
 				40145707EDCB53DCA43A44A9 /* 40145707EDCB53DCA43A44A9 */,
 				A1B5A6B9A3CE3D477BA046A0 /* A1B5A6B9A3CE3D477BA046A0 */,
 				337B1BB4F9F838040D043685 /* 337B1BB4F9F838040D043685 */,
@@ -357,6 +381,8 @@
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Room Remote";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -388,6 +414,8 @@
 				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Room Remote";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
